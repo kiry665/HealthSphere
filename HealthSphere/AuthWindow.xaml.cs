@@ -27,6 +27,7 @@ namespace HealthSphere
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             User user = null;
             string login = LoginTB.Text.Trim();
             string password = PasswordTB.Password.Trim();

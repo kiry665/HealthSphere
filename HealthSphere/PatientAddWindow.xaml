@@ -12,19 +12,19 @@
             <StackPanel>
                 <TextBlock FontSize="30" FontWeight="Bold" Margin="5">Анкета пациента</TextBlock>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Фамилия</TextBlock>
-                <TextBox materialDesign:HintAssist.Hint="Введите фамилию" FontSize="20" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="last_nameTB" materialDesign:HintAssist.Hint="Введите фамилию" FontSize="20" Margin="0 0 0 10" TextChanged="TextChanged"></TextBox>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Имя</TextBlock>
-                <TextBox materialDesign:HintAssist.Hint="Введите имя" FontSize="20" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="first_nameTB" materialDesign:HintAssist.Hint="Введите имя" FontSize="20" Margin="0 0 0 10" TextChanged="TextChanged"></TextBox>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Отчество</TextBlock>
-                <TextBox materialDesign:HintAssist.Hint="Введите отчество" FontSize="20" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="patronymic_nameTB" materialDesign:HintAssist.Hint="Введите отчество" FontSize="20" Margin="0 0 0 10" TextChanged="TextChanged"></TextBox>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Дата рождения</TextBlock>
-                <DatePicker FontSize="20" Margin="0 0 0 5"/>
+                <DatePicker Name="birthday" materialDesign:HintAssist.Hint="Введите дату рождения" FontSize="20" Margin="0 0 0 5" KeyDown="DateChanged"/>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Пол</TextBlock>
                 <StackPanel Orientation="Horizontal" Height="40" Margin="0 0 0 20">
-                    <RadioButton FontSize="20" Content="М" Margin="0 0 20 0"/>
-                    <RadioButton FontSize="20"  Content="Ж"/>
+                    <RadioButton x:Name="male" FontSize="20" Content="М" Margin="0 0 20 0" Checked="Checked"/>
+                    <RadioButton Name="female"  FontSize="20"  Content="Ж" Checked="Checked"/>
                 </StackPanel>
-                <Button Content="Сохранить"/>
+                <Button Content="Сохранить" Click="Button_Click"/>
             </StackPanel>
         </Border>
     </Grid>

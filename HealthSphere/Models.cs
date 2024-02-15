@@ -18,8 +18,9 @@ namespace HealthSphere
         public int id { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public string patonymic { get; set; }
+        public string patronymic { get; set; }
         public string sex { get; set; }
+        public DateOnly date { get; set; }
 
     }
 }
