@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +22,12 @@ namespace HealthSphere
     /// </summary>
     public partial class BasicWindow : Window
     {
+        private ApplicationContext dbContext;
         public BasicWindow()
         {
             InitializeComponent();
+            Frame.Navigate(new PatientsPage());
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PatientAddWindow window = new PatientAddWindow();
-            window.Show();
-        }
+        
     }
 }

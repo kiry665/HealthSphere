@@ -62,6 +62,7 @@ namespace HealthSphere
                 {
                     db.patients.Add(patient);
                     db.SaveChanges();
+                    this.Close();
                 }
             }
         }
@@ -89,5 +90,16 @@ namespace HealthSphere
             male.Foreground = Brushes.Black;
             female.Foreground = Brushes.Black;
         }
+
+        private void DateChanged(object sender, RoutedEventArgs e)
+        {
+            DatePicker datePicker = sender as DatePicker;
+            if (datePicker != null)
+            {
+                datePicker.Foreground = Brushes.Black;
+            }
+        }
+
+        
     }
 }

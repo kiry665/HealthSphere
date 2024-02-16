@@ -40,7 +40,6 @@ namespace HealthSphere
             }
             if (user != null)
             {
-                MessageBox.Show(user.id.ToString());
                 BasicWindow window = new BasicWindow();
                 window.Show();
                 this.Close();

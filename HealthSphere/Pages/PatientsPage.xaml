@@ -1,0 +1,26 @@
+﻿<Page x:Class="HealthSphere.PatientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HealthSphere"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PatientsPage">
+
+    <Grid Background="#ffdadada">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="White">
+            <Button Content="Добавить карточку" Margin="5" Click="Add_Click"/>
+            <Button Content="Удалить выбранное" Margin="5" Click="Remove_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="PatientsTable" IsReadOnly="True" SelectionChanged="PatientsTable_SelectionChanged" MouseDoubleClick="PatientsTable_MouseDoubleClick" AutoGeneratingColumn="PatientsTable_AutoGeneratingColumn">
+            
+        </DataGrid>
+    </Grid>
+</Page>

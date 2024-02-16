@@ -18,7 +18,7 @@
                 <TextBlock FontSize="20" Margin="0 0 0 5">Отчество</TextBlock>
                 <TextBox Name="patronymic_nameTB" materialDesign:HintAssist.Hint="Введите отчество" FontSize="20" Margin="0 0 0 10" TextChanged="TextChanged"></TextBox>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Дата рождения</TextBlock>
-                <DatePicker Name="birthday" materialDesign:HintAssist.Hint="Введите дату рождения" FontSize="20" Margin="0 0 0 5" KeyDown="DateChanged"/>
+                <DatePicker Name="birthday" materialDesign:HintAssist.Hint="Введите дату рождения" FontSize="20" Margin="0 0 0 5" KeyDown="DateChanged" CalendarOpened="DateChanged"/>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Пол</TextBlock>
                 <StackPanel Orientation="Horizontal" Height="40" Margin="0 0 0 20">
                     <RadioButton x:Name="male" FontSize="20" Content="М" Margin="0 0 20 0" Checked="Checked"/>
