@@ -11,6 +11,7 @@
     <Grid Background="#ffdadada">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -19,7 +20,11 @@
             <Button Content="Удалить выбранное" Margin="5" Click="Remove_Click"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="PatientsTable" IsReadOnly="True" SelectionChanged="PatientsTable_SelectionChanged" MouseDoubleClick="PatientsTable_MouseDoubleClick" AutoGeneratingColumn="PatientsTable_AutoGeneratingColumn">
+        <StackPanel Grid.Row="1" Background="White" Orientation="Horizontal">
+            
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" x:Name="PatientsTable" IsReadOnly="True" SelectionChanged="PatientsTable_SelectionChanged" MouseDoubleClick="PatientsTable_MouseDoubleClick" AutoGeneratingColumn="PatientsTable_AutoGeneratingColumn">
             
         </DataGrid>
     </Grid>
