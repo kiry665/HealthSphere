@@ -41,11 +41,12 @@ namespace HealthSphere
         
     }
 
-    public class Doctors
+    public class Doctor
     {
         [NotMapped]
         [DisplayName(" ")]
         public bool isSelect { get; set; } = false;
+
         [DisplayName("№")]
         public int id { get; set; }
 
@@ -58,10 +59,10 @@ namespace HealthSphere
         [DisplayName("Отчество")]
         public string patronymic { get; set; }
 
-        [DisplayName("Специализация")]
-        public int specialization_id { get; set; }
+        
+        public int specializationid { get; set; }
 
-       
+        public virtual Specialization specialization { get; set; }
     }
 
     public class Specialization

@@ -25,7 +25,7 @@ namespace HealthSphere.Pages
     public partial class DoctorsPage : Page
     {
         private ApplicationContext dbContext;
-        private List<Doctors> RemoveList = new List<Doctors> { };
+        private List<Doctor> RemoveList = new List<Doctor> { };
         public DoctorsPage()
         {
             InitializeComponent();
@@ -58,11 +58,11 @@ namespace HealthSphere.Pages
         }
         private void CreateTable()
         {
-            dbContext = new ApplicationContext();
-            ObservableCollection<Doctors> doctors = new ObservableCollection<Doctors>(dbContext.doctors);
-            DoctorsTable.ItemsSource = doctors.ToList();
-
-            
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                var doctors = db.doctors.Include(d => d.specialization).ToList();
+                DoctorsTable.ItemsSource = doctors;
+            }
 
         }
         private void DoctorsTable_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -71,6 +71,20 @@ namespace HealthSphere.Pages
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
+
+                if(prop.Name == "specialization")
+                {
+                    e.Column = new DataGridTextColumn
+                    {
+                        Header = "Специализация",
+                        Binding = new Binding("specialization.name_speciality")
+                    };
+                }
+
+                if (prop.Name == "specializationid")
+                {
+                    e.Cancel = true;
+                }
 
                 if (prop.PropertyType == typeof(DateOnly))
                 {
@@ -100,7 +114,7 @@ namespace HealthSphere.Pages
             {
                 object dataObject = cellInfo.Item;
                 int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Doctors doctors && columnIndex == 0)
+                if (dataObject is Doctor doctors && columnIndex == 0)
                 {
                     doctors.isSelect = !doctors.isSelect;
                     DoctorsTable.Items.Refresh();
