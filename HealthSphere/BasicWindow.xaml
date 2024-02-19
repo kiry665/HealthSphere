@@ -12,8 +12,8 @@
             <TabItem Header="Пациенты">
                 <Frame Name="Frame"/>
             </TabItem>
-            <TabItem Header="TabItem">
-                
+            <TabItem Header="Доктора">
+                <Frame Name="Frame2"/>
             </TabItem>
         </TabControl>
 

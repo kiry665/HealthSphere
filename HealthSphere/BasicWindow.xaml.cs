@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HealthSphere.Pages;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace HealthSphere
         {
             InitializeComponent();
             Frame.Navigate(new PatientsPage());
+            Frame2.Navigate(new DoctorsPage());
         }
         
     }

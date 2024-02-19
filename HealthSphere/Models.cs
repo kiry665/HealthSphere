@@ -40,4 +40,33 @@ namespace HealthSphere
         public DateOnly date { get; set; }
         
     }
+
+    public class Doctors
+    {
+        [NotMapped]
+        [DisplayName(" ")]
+        public bool isSelect { get; set; } = false;
+        [DisplayName("№")]
+        public int id { get; set; }
+
+        [DisplayName("Фамилия")]
+        public string last_name { get; set; }
+
+        [DisplayName("Имя")]
+        public string first_name { get; set; }
+
+        [DisplayName("Отчество")]
+        public string patronymic { get; set; }
+
+        [DisplayName("Специализация")]
+        public int specialization_id { get; set; }
+
+       
+    }
+
+    public class Specialization
+    {
+        public int id { get; set; }
+        public string name_speciality { get; set; }
+    }
 }
