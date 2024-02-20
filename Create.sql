@@ -26,9 +26,18 @@ CREATE TABLE Specializations(
     Name_speciality TEXT
 );
 
-INSERT INTO Specializations(ID, Name_speciality)
+INSERT INTO Specializations(Name_speciality)
 VALUES
-    (1, 'Терапевт');
+    ('Терапевт'),
+    ('Офтальмолог'),
+    ('Хирург'),
+    ('Дерматолог'),
+    ('Ортопед'),
+    ('Невролог'),
+    ('Отоларинголог'),
+    ('Кардиолог'),
+    ('Фтизиатр'),
+    ('Аллерголог');
 
 CREATE TABLE Doctors(
     ID SERIAL PRIMARY KEY,
@@ -179,6 +188,108 @@ INSERT INTO patients (Last_name, First_name, Patronymic, Sex, Date) VALUES ('Г�
 INSERT INTO patients (Last_name, First_name, Patronymic, Sex, Date) VALUES ('Белова', 'Ольга', 'Матвеевна', 'Ж', '1982-08-17 00:00:00');
 INSERT INTO patients (Last_name, First_name, Patronymic, Sex, Date) VALUES ('Гордеева', 'Светлана', 'Романовна', 'Ж', '1995-08-07 00:00:00');
 
+
+
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Фролов', 'Елисей', 'Николаевич', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Грибов', 'Платон', 'Кириллович', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Попов', 'Максим', 'Андреевич', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Морозов', 'Вячеслав', 'Олегович', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Зверев', 'Фёдор', 'Георгиевич', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Русанов', 'Даниил', 'Михайлович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Филатов', 'Александр', 'Ярославович', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Сычев', 'Марат', 'Михайлович', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Молчанов', 'Даниил', 'Ярославович', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Морозов', 'Григорий', 'Михайлович', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Макеев', 'Никита', 'Егорович', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Симонов', 'Максим', 'Константинович', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Свешников', 'Анатолий', 'Богданович', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Леонтьев', 'Даниил', 'Фёдорович', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Павлов', 'Демид', 'Артёмович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Некрасов', 'Иван', 'Романович', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Казаков', 'Артём', 'Артёмович', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Фролов', 'Матвей', 'Богданович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Кузнецов', 'Тимур', 'Фёдорович', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Павлов', 'Артём', 'Михайлович', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Кондратьев', 'Леонид', 'Александрович', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Орлов', 'Фёдор', 'Михайлович', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Матвеев', 'Марк', 'Богданович', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Попов', 'Максим', 'Никитич', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Макеев', 'Константин', 'Иванович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Панов', 'Матвей', 'Александрович', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Новиков', 'Алексей', 'Петрович', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Петров', 'Леонид', 'Артёмович', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Романов', 'Олег', 'Александрович', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Попов', 'Ярослав', 'Лукич', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Аксенов', 'Леонид', 'Максимович', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Лапин', 'Георгий', 'Тимурович', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Максимов', 'Фёдор', 'Егорович', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Владимиров', 'Лев', 'Романович', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Афанасьев', 'Леонид', 'Григорьевич', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Майоров', 'Даниэль', 'Егорович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Логинов', 'Артём', 'Фёдорович', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Ермолаев', 'Тимофей', 'Тимурович', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Лебедев', 'Билал', 'Олегович', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Иванов', 'Дмитрий', 'Михайлович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Лыков', 'Максим', 'Иванович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Борисов', 'Даниэль', 'Матвеевич', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Захаров', 'Кирилл', 'Егорович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Иванов', 'Тимофей', 'Данилович', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Симонов', 'Михаил', 'Михайлович', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Никитин', 'Савва', 'Никитич', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Покровский', 'Платон', 'Александрович', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Климов', 'Станислав', 'Арсентьевич', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Зимин', 'Илья', 'Олегович', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Романов', 'Арсений', 'Артёмович', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Рыбакова', 'Сафия', 'Эмировна', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Кудрявцева', 'Виктория', 'Максимовна', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Носова', 'Вероника', 'Дмитриевна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Федотова', 'Виктория', 'Андреевна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Александрова', 'Елизавета', 'Даниэльевна', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Сазонова', 'Виктория', 'Билаловна', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Егорова', 'Агата', 'Ильинична', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Матвеева', 'Ксения', 'Павловна', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Мартынова', 'Карина', 'Михайловна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Горбунова', 'Элина', 'Романовна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Савельева', 'Карина', 'Михайловна', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Морозова', 'Анастасия', 'Платоновна', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Яковлева', 'Дарья', 'Давидовна', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Богданова', 'Амира', 'Тимуровна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Богданова', 'Айлин', 'Даниэльевна', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Иванова', 'Вероника', 'Георгиевна', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Иванова', 'Мария', 'Дмитриевна', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Киселева', 'Зоя', 'Алексеевна', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Смирнова', 'Ульяна', 'Глебовна', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Шмелева', 'София', 'Глебовна', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Мальцева', 'София', 'Всеволодовна', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Филимонова', 'Василиса', 'Максимовна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Михайлова', 'Виктория', 'Алексеевна', '4');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Зайцева', 'Мария', 'Романовна', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Петрова', 'Маргарита', 'Кирилловна', '5');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Алешина', 'Эмма', 'Егоровна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Петрова', 'Арина', 'Артёмовна', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Петрова', 'Вероника', 'Мирославовна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Яковлева', 'Анна', 'Никитична', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Егорова', 'Кристина', 'Фёдоровна', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Серова', 'Виктория', 'Ярославовна', '8');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Панова', 'Арина', 'Алексеевна', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Грибова', 'Василиса', 'Николаевна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Кузнецова', 'Виктория', 'Вячеславовна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Миронова', 'Анастасия', 'Игоревна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Левина', 'Варвара', 'Ильинична', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Зорина', 'Алиса', 'Мироновна', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Балашова', 'Валерия', 'Павловна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Павлова', 'Сафия', 'Петровна', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Владимирова', 'Ева', 'Кирилловна', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Егорова', 'София', 'Романовна', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Блинова', 'Александра', 'Павловна', '3');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Ерофеева', 'Ксения', 'Тимуровна', '10');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Антипова', 'Кристина', 'Артёмовна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Булатова', 'Александра', 'Георгиевна', '1');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Федорова', 'Валерия', 'Денисовна', '6');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Богданова', 'Полина', 'Константиновна', '9');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Иванова', 'Елизавета', 'Данииловна', '7');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Черных', 'Аделина', 'Егоровна', '2');
+INSERT INTO doctors (Last_name, First_name, Patronymic, Specializationid) VALUES ('Сорокина', 'Алиса', 'Егоровна', '8');
 
 
 
