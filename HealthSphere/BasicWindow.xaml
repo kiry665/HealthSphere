@@ -15,6 +15,9 @@
             <TabItem Header="Доктора">
                 <Frame Name="Frame2"/>
             </TabItem>
+            <TabItem Header="Специальности">
+                <Frame Name="Frame3"/>
+            </TabItem>
         </TabControl>
 
     </Grid>

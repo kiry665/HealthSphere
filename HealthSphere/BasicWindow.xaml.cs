@@ -29,6 +29,7 @@ namespace HealthSphere
             InitializeComponent();
             Frame.Navigate(new PatientsPage());
             Frame2.Navigate(new DoctorsPage());
+            Frame3.Navigate(new SpecializationsPage());
         }
         
     }

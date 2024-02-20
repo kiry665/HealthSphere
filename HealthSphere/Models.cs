@@ -67,7 +67,14 @@ namespace HealthSphere
 
     public class Specialization
     {
+        [NotMapped]
+        [DisplayName(" ")]
+        public bool isSelect { get; set; } = false;
+
+        [DisplayName("№")]
         public int id { get; set; }
+
+        [DisplayName("Название специальности")]
         public string name_speciality { get; set; }
     }
 }
