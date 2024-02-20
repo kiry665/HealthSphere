@@ -24,8 +24,9 @@ namespace HealthSphere.Pages
     /// </summary>
     public partial class DoctorsPage : Page
     {
-        private ApplicationContext dbContext;
-        private List<Doctor> RemoveList = new List<Doctor> { };
+        //private ApplicationContext dbContext;
+        private List<Doctor> CheckList = new List<Doctor> { }; //ЗАМЕНА
+        private List<Doctor> items_list;
         public DoctorsPage()
         {
             InitializeComponent();
@@ -51,28 +52,29 @@ namespace HealthSphere.Pages
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            dbContext = new ApplicationContext();
-            dbContext.doctors.RemoveRange(RemoveList);
-            dbContext.SaveChanges();
-            CreateTable();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.doctors.RemoveRange(CheckList);
+                db.SaveChanges();
+                CreateTable();
+            }
         }
         private void CreateTable()
         {
-            using(ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 var doctors = db.doctors.Include(d => d.specialization).ToList();
-                DoctorsTable.ItemsSource = doctors;
+                Table.ItemsSource = doctors;
             }
-
         }
-        private void DoctorsTable_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var prop = e.PropertyDescriptor as PropertyDescriptor;
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
 
-                if(prop.Name == "specialization")
+                if (prop.Name == "specialization")
                 {
                     e.Column = new DataGridTextColumn
                     {
@@ -101,30 +103,30 @@ namespace HealthSphere.Pages
             CreateTable();
         }
 
-        private void DoctorsTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DoctorsTable.SelectedItems.Clear();
-            DoctorsTable.SelectedCells.Clear();
+            Table.SelectedItems.Clear();
+            Table.SelectedCells.Clear();
         }
 
-        private void DoctorsTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridCellInfo cellInfo = DoctorsTable.CurrentCell;
+            DataGridCellInfo cellInfo = Table.CurrentCell;
             if (cellInfo != null && cellInfo.IsValid)
             {
                 object dataObject = cellInfo.Item;
                 int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Doctor doctors && columnIndex == 0)
+                if (dataObject is Doctor item && columnIndex == 0)
                 {
-                    doctors.isSelect = !doctors.isSelect;
-                    DoctorsTable.Items.Refresh();
-                    if (doctors.isSelect == true)
+                    item.isSelect = !item.isSelect;
+                    Table.Items.Refresh();
+                    if (item.isSelect == true)
                     {
-                        RemoveList.Add(doctors);
+                        CheckList.Add(item);
                     }
                     else
                     {
-                        RemoveList.Remove(doctors);
+                        CheckList.Remove(item);
                     }
                 }
             }
@@ -145,14 +147,21 @@ namespace HealthSphere.Pages
             string First_name = (substrings.Length >= 2) ? substrings[1] : "";
             string Patronymic = (substrings.Length >= 3) ? substrings[2] : "";
 
-
-            using (ApplicationContext context = new ApplicationContext())
+            if (items_list is List<Doctor> items)
             {
-                var filteredData = context.doctors
+                var filteredData = items
                     .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
                     .ToList();
-                DoctorsTable.ItemsSource = filteredData;
+
+                Table.ItemsSource = filteredData;
             }
+            //using (ApplicationContext context = new ApplicationContext())
+            //{
+            //    var filteredData = context.patients
+            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
+            //        .ToList();
+            //    Table.ItemsSource = filteredData;
+
         }
     }
 }

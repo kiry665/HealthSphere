@@ -22,6 +22,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1" Background="White" Margin="1">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -30,7 +31,7 @@
             <TextBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Поиск" TextChanged="TextBox_TextChanged"></TextBox>
         </Grid>
 
-        <DataGrid Grid.Row="2" x:Name="SpecializationsTable" IsReadOnly="True" SelectionChanged="SpecializationsTable_SelectionChanged" MouseDoubleClick="SpecializationsTable_MouseDoubleClick" AutoGeneratingColumn="SpecializationsTable_AutoGeneratingColumn">
+        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="True" SelectionChanged="Table_SelectionChanged" SelectionMode="Extended" SelectionUnit="FullRow" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
 
         </DataGrid>
     </Grid>

@@ -23,8 +23,9 @@ namespace HealthSphere.Pages
     /// </summary>
     public partial class SpecializationsPage : Page
     {
-        private ApplicationContext dbContext;
-        private List<Specialization> RemoveList = new List<Specialization> { };
+        //private ApplicationContext dbContext;
+        private List<Specialization> CheckList = new List<Specialization> { }; //ЗАМЕНА
+        private List<Specialization> items_list;
         public SpecializationsPage()
         {
             InitializeComponent();
@@ -44,25 +45,28 @@ namespace HealthSphere.Pages
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            PatientAddWindow window = new PatientAddWindow();
-            window.Closed += HandleSecondWindowClosed;
-            window.Show();
+            
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            dbContext = new ApplicationContext();
-            dbContext.specializations.RemoveRange(RemoveList);
-            dbContext.SaveChanges();
-            CreateTable();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.specializations.RemoveRange(CheckList);
+                db.SaveChanges();
+                CreateTable();
+            }
         }
         private void CreateTable()
         {
-            dbContext = new ApplicationContext();
-            ObservableCollection<Specialization> specializations = new ObservableCollection<Specialization>(dbContext.specializations);
-            SpecializationsTable.ItemsSource = specializations.ToList();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Table.ItemsSource = null;
+                ObservableCollection<Specialization> items = new ObservableCollection<Specialization>(db.specializations);
+                Table.ItemsSource = items.ToList();
+                items_list = items.ToList();
+            }
         }
-
-        private void SpecializationsTable_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var prop = e.PropertyDescriptor as PropertyDescriptor;
             if (prop != null)
@@ -84,30 +88,30 @@ namespace HealthSphere.Pages
             CreateTable();
         }
 
-        private void SpecializationsTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SpecializationsTable.SelectedItems.Clear();
-            SpecializationsTable.SelectedCells.Clear();
+            Table.SelectedItems.Clear();
+            Table.SelectedCells.Clear();
         }
 
-        private void SpecializationsTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridCellInfo cellInfo = SpecializationsTable.CurrentCell;
+            DataGridCellInfo cellInfo = Table.CurrentCell;
             if (cellInfo != null && cellInfo.IsValid)
             {
                 object dataObject = cellInfo.Item;
                 int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Specialization specialization && columnIndex == 0)
+                if (dataObject is Specialization item && columnIndex == 0)
                 {
-                    specialization.isSelect = !specialization.isSelect;
-                    SpecializationsTable.Items.Refresh();
-                    if (specialization.isSelect == true)
+                    item.isSelect = !item.isSelect;
+                    Table.Items.Refresh();
+                    if (item.isSelect == true)
                     {
-                        RemoveList.Add(specialization);
+                        CheckList.Add(item);
                     }
                     else
                     {
-                        RemoveList.Remove(specialization);
+                        CheckList.Remove(item);
                     }
                 }
             }
@@ -123,14 +127,21 @@ namespace HealthSphere.Pages
         }
         private void UpdateDataGrid(string searchTerm)
         {
-
-            using (ApplicationContext context = new ApplicationContext())
+            if (items_list is List<Specialization> items)
             {
-                var filteredData = context.specializations
+                var filteredData = items
                     .Where(item => item.name_speciality.Contains(searchTerm))
                     .ToList();
-                SpecializationsTable.ItemsSource = filteredData;
+
+                Table.ItemsSource = filteredData;
             }
+            //using (ApplicationContext context = new ApplicationContext())
+            //{
+            //    var filteredData = context.patients
+            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
+            //        .ToList();
+            //    Table.ItemsSource = filteredData;
+
         }
     }
 }

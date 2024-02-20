@@ -26,7 +26,7 @@ namespace HealthSphere.Pages
     {
         //private ApplicationContext dbContext;
         private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
-        private List<Patient> patients_list;
+        private List<Patient> items_list;
         public UniversalTablePage()
         {
             InitializeComponent();
@@ -64,9 +64,9 @@ namespace HealthSphere.Pages
             using (ApplicationContext db = new ApplicationContext())
             {
                 Table.ItemsSource = null;
-                ObservableCollection<Patient> patients = new ObservableCollection<Patient>(db.patients);
-                Table.ItemsSource = patients.ToList();
-                patients_list = patients.ToList();
+                ObservableCollection<Patient> items = new ObservableCollection<Patient>(db.patients);
+                Table.ItemsSource = items.ToList();
+                items_list = items.ToList();
             }
         }
         private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -93,8 +93,8 @@ namespace HealthSphere.Pages
 
         private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Table.SelectedItems.Clear();
-            //Table.SelectedCells.Clear();
+            Table.SelectedItems.Clear();
+            Table.SelectedCells.Clear();
         }
 
         private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -104,17 +104,17 @@ namespace HealthSphere.Pages
             {
                 object dataObject = cellInfo.Item;
                 int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Patient patient && columnIndex == 0)
+                if (dataObject is Patient item && columnIndex == 0)
                 {
-                    patient.isSelect = !patient.isSelect;
+                    item.isSelect = !item.isSelect;
                     Table.Items.Refresh();
-                    if (patient.isSelect == true)
+                    if (item.isSelect == true)
                     {
-                        CheckList.Add(patient);
+                        CheckList.Add(item);
                     }
                     else
                     {
-                        CheckList.Remove(patient);
+                        CheckList.Remove(item);
                     }
                 }
             }
@@ -135,9 +135,9 @@ namespace HealthSphere.Pages
             string First_name = (substrings.Length >= 2) ? substrings[1] : "";
             string Patronymic = (substrings.Length >= 3) ? substrings[2] : "";
 
-            if (patients_list is List<Patient> patients)
+            if (items_list is List<Patient> items)
             {
-                var filteredData = patients
+                var filteredData = items
                     .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
                     .ToList();
 
@@ -151,8 +151,5 @@ namespace HealthSphere.Pages
             //    Table.ItemsSource = filteredData;
 
         }
-
-
-
     }
 }

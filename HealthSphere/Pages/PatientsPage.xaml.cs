@@ -24,8 +24,9 @@ namespace HealthSphere
     /// </summary>
     public partial class PatientsPage : Page
     {
-        private ApplicationContext dbContext;
-        private List<Patient> RemoveList = new List<Patient> { };
+        //private ApplicationContext dbContext;
+        private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
+        private List<Patient> items_list;
         public PatientsPage()
         {
             InitializeComponent();
@@ -51,18 +52,24 @@ namespace HealthSphere
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            dbContext = new ApplicationContext();
-            dbContext.patients.RemoveRange(RemoveList);
-            dbContext.SaveChanges();
-            CreateTable();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.patients.RemoveRange(CheckList);
+                db.SaveChanges();
+                CreateTable();
+            }
         }
         private void CreateTable()
         {
-            dbContext = new ApplicationContext();
-            ObservableCollection<Patient> patients = new ObservableCollection<Patient>(dbContext.patients);
-            PatientsTable.ItemsSource = patients.ToList();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Table.ItemsSource = null;
+                ObservableCollection<Patient> items = new ObservableCollection<Patient>(db.patients);
+                Table.ItemsSource = items.ToList();
+                items_list = items.ToList();
+            }
         }
-        private void PatientsTable_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var prop = e.PropertyDescriptor as PropertyDescriptor;
             if (prop != null)
@@ -84,30 +91,30 @@ namespace HealthSphere
             CreateTable();
         }
 
-        private void PatientsTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PatientsTable.SelectedItems.Clear();
-            PatientsTable.SelectedCells.Clear();
+            Table.SelectedItems.Clear();
+            Table.SelectedCells.Clear();
         }
 
-        private void PatientsTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridCellInfo cellInfo = PatientsTable.CurrentCell;
+            DataGridCellInfo cellInfo = Table.CurrentCell;
             if (cellInfo != null && cellInfo.IsValid)
             {
                 object dataObject = cellInfo.Item;
                 int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Patient patient && columnIndex == 0)
+                if (dataObject is Patient item && columnIndex == 0)
                 {
-                    patient.isSelect = !patient.isSelect;
-                    PatientsTable.Items.Refresh();
-                    if(patient.isSelect == true)
+                    item.isSelect = !item.isSelect;
+                    Table.Items.Refresh();
+                    if (item.isSelect == true)
                     {
-                        RemoveList.Add(patient);
+                        CheckList.Add(item);
                     }
                     else
                     {
-                        RemoveList.Remove(patient);
+                        CheckList.Remove(item);
                     }
                 }
             }
@@ -128,14 +135,21 @@ namespace HealthSphere
             string First_name = (substrings.Length >= 2) ? substrings[1] : "";
             string Patronymic = (substrings.Length >= 3) ? substrings[2] : "";
 
-
-            using (ApplicationContext context = new ApplicationContext())
+            if (items_list is List<Patient> items)
             {
-                var filteredData = context.patients
+                var filteredData = items
                     .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
                     .ToList();
-                PatientsTable.ItemsSource = filteredData;
+
+                Table.ItemsSource = filteredData;
             }
+            //using (ApplicationContext context = new ApplicationContext())
+            //{
+            //    var filteredData = context.patients
+            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
+            //        .ToList();
+            //    Table.ItemsSource = filteredData;
+
         }
     }
 }
