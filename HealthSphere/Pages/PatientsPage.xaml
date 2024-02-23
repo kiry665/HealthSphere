@@ -20,7 +20,6 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="White">
             <Button Content="Добавить карточку" Margin="5" Click="Add_Click"/>
             <Button Content="Удалить выбранное" Margin="5" Click="Remove_Click"/>
-            <Button Content="Редактировать" Margin="5" Click="Edit_Click"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Background="White" Margin="1">
@@ -33,7 +32,7 @@
             <TextBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Поиск" TextChanged="TextBox_TextChanged"></TextBox>
         </Grid>
 
-        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="True" SelectionChanged="Table_SelectionChanged" SelectionMode="Extended" SelectionUnit="FullRow" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
+        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="False" CanUserAddRows="False" SelectionChanged="Table_SelectionChanged" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
 
         </DataGrid>
     </Grid>

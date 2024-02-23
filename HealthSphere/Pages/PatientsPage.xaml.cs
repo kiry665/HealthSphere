@@ -25,8 +25,7 @@ namespace HealthSphere
     /// </summary>
     public partial class PatientsPage : Page
     {
-        //private ApplicationContext dbContext;
-        private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
+
         private List<Patient> items_list;
         public PatientsPage()
         {
@@ -53,9 +52,20 @@ namespace HealthSphere
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
+            List<Patient> RemoveList = new List<Patient> { };
+            foreach (var item in Table.Items)
+            {
+                if (item is Patient patient)
+                {
+                    if (patient.isSelect)
+                    {
+                        RemoveList.Add(patient);
+                    }
+                }
+            }
             using (ApplicationContext db = new ApplicationContext())
             {
-                db.patients.RemoveRange(CheckList);
+                db.patients.RemoveRange(RemoveList);
                 db.SaveChanges();
                 CreateTable();
             }
@@ -77,9 +87,9 @@ namespace HealthSphere
             {
                 e.Column.Header = prop.DisplayName;
 
-                if (prop.Name == "isSelect")
+                if (prop.Name != "isSelect")
                 {
-                    e.Column.IsReadOnly = false;
+                    e.Column.IsReadOnly = true;
                 }
 
                 if (prop.PropertyType == typeof(DateOnly))
@@ -89,7 +99,6 @@ namespace HealthSphere
                     {
                         textColumn.Binding.StringFormat = "dd.MM.yyyy"; // Формат "день.месяц.год"
                     }
-                    //textColumn.IsReadOnly = true;
                 }
             }
         }
@@ -102,29 +111,6 @@ namespace HealthSphere
         {
             Table.SelectedItems.Clear();
             Table.SelectedCells.Clear();
-        }
-
-        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DataGridCellInfo cellInfo = Table.CurrentCell;
-            if (cellInfo != null && cellInfo.IsValid)
-            {
-                object dataObject = cellInfo.Item;
-                int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Patient item && columnIndex == 0)
-                {
-                    item.isSelect = !item.isSelect;
-                    Table.Items.Refresh();
-                    if (item.isSelect == true)
-                    {
-                        CheckList.Add(item);
-                    }
-                    else
-                    {
-                        CheckList.Remove(item);
-                    }
-                }
-            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -150,18 +136,24 @@ namespace HealthSphere
 
                 Table.ItemsSource = filteredData;
             }
-            //using (ApplicationContext context = new ApplicationContext())
-            //{
-            //    var filteredData = context.patients
-            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
-            //        .ToList();
-            //    Table.ItemsSource = filteredData;
-
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
+        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Table.IsReadOnly = !Table.IsReadOnly;
+            if (e.ChangedButton == MouseButton.Left && sender is DataGrid dataGrid)
+            {
+                DataGridCellInfo cellInfo = Table.CurrentCell;
+                if (cellInfo != null && cellInfo.IsValid)
+                {
+                    object dataObject = cellInfo.Item;
+                    if (dataObject is Patient item)
+                    {
+                        PatientAddWindow window = new PatientAddWindow(item.id, item.last_name, item.first_name, item.patronymic, item.date.ToString(), item.sex);
+                        window.Show();
+                        window.Closed += HandleSecondWindowClosed;
+                    }
+                }
+            }
         }
     }
 }

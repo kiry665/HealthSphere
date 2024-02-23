@@ -27,7 +27,7 @@ namespace HealthSphere.Windows
         public BasicWindow()
         {
             InitializeComponent();
-            Frame.Navigate(new UniversalTablePage());
+            Frame.Navigate(new PatientsPage());
             Frame2.Navigate(new DoctorsPage());
             Frame3.Navigate(new SpecializationsPage());
         }

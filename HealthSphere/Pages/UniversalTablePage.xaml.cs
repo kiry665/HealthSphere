@@ -87,9 +87,9 @@ namespace HealthSphere.Pages
             {
                 e.Column.Header = prop.DisplayName;
 
-                if (prop.Name == "isSelect")
+                if (prop.Name != "isSelect")
                 {
-                    e.Column.IsReadOnly = false;
+                    e.Column.IsReadOnly = true;
                 }
 
                 if (prop.PropertyType == typeof(DateOnly))
