@@ -25,8 +25,7 @@ namespace HealthSphere.Pages
     /// </summary>
     public partial class UniversalTablePage : Page
     {
-        //private ApplicationContext dbContext;
-        //private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
+       
         private List<Patient> items_list;
         public UniversalTablePage()
         {
