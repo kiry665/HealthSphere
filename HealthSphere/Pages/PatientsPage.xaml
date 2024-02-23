@@ -20,6 +20,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="White">
             <Button Content="Добавить карточку" Margin="5" Click="Add_Click"/>
             <Button Content="Удалить выбранное" Margin="5" Click="Remove_Click"/>
+            <Button Content="Редактировать" Margin="5" Click="Edit_Click"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Background="White" Margin="1">

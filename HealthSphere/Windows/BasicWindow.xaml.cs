@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace HealthSphere
+namespace HealthSphere.Windows
 {
     /// <summary>
     /// Логика взаимодействия для BasicWindow.xaml
@@ -27,7 +27,7 @@ namespace HealthSphere
         public BasicWindow()
         {
             InitializeComponent();
-            Frame.Navigate(new PatientsPage());
+            Frame.Navigate(new UniversalTablePage());
             Frame2.Navigate(new DoctorsPage());
             Frame3.Navigate(new SpecializationsPage());
         }

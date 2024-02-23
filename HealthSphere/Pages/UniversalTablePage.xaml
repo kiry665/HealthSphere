@@ -31,7 +31,7 @@
             <TextBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Поиск" TextChanged="TextBox_TextChanged"></TextBox>
         </Grid>
 
-        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="True" SelectionChanged="Table_SelectionChanged" SelectionMode="Extended" SelectionUnit="FullRow" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
+        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="True" SelectionChanged="Table_SelectionChanged" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
             
         </DataGrid>
     </Grid>

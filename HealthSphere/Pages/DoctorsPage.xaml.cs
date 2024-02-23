@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace HealthSphere.Pages
 {
     /// <summary>
@@ -46,9 +47,7 @@ namespace HealthSphere.Pages
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            PatientAddWindow window = new PatientAddWindow();
-            window.Closed += HandleSecondWindowClosed;
-            window.Show();
+            
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
@@ -73,6 +72,11 @@ namespace HealthSphere.Pages
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
+
+                if (prop.Name == "id")
+                {
+                    e.Column.IsReadOnly = true;
+                }
 
                 if (prop.Name == "specialization")
                 {

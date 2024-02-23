@@ -49,12 +49,12 @@ namespace HealthSphere.Pages
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.specializations.RemoveRange(CheckList);
-                db.SaveChanges();
-                CreateTable();
-            }
+            //using (ApplicationContext db = new ApplicationContext())
+            //{
+            //    db.specializations.RemoveRange(CheckList);
+            //    db.SaveChanges();
+            //    CreateTable();
+            //}
         }
         private void CreateTable()
         {
@@ -72,15 +72,11 @@ namespace HealthSphere.Pages
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
-
-                if (prop.PropertyType == typeof(DateOnly))
+                if (prop.Name == "id")
                 {
-                    DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
-                    if (textColumn != null)
-                    {
-                        textColumn.Binding.StringFormat = "dd.MM.yyyy"; // Формат "день.месяц.год"
-                    }
+                    e.Column.IsReadOnly = true;
                 }
+
             }
         }
         public void HandleSecondWindowClosed(object sender, EventArgs e)

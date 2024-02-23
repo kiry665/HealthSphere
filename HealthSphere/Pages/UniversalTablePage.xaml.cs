@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HealthSphere.Windows;
 
 namespace HealthSphere.Pages
 {
@@ -25,7 +26,7 @@ namespace HealthSphere.Pages
     public partial class UniversalTablePage : Page
     {
         //private ApplicationContext dbContext;
-        private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
+        //private List<Patient> CheckList = new List<Patient> { }; //ЗАМЕНА
         private List<Patient> items_list;
         public UniversalTablePage()
         {
@@ -52,9 +53,20 @@ namespace HealthSphere.Pages
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            using(ApplicationContext db = new ApplicationContext())
+            List<Patient> RemoveList = new List<Patient> { };
+            foreach (var item in Table.Items)
             {
-                db.patients.RemoveRange(CheckList);
+                if (item is Patient patient)
+                {
+                    if (patient.isSelect)
+                    {
+                        RemoveList.Add(patient);
+                    }
+                }
+            }
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.patients.RemoveRange(RemoveList);
                 db.SaveChanges();
                 CreateTable();
             }
@@ -76,6 +88,11 @@ namespace HealthSphere.Pages
             {
                 e.Column.Header = prop.DisplayName;
 
+                if (prop.Name == "isSelect")
+                {
+                    e.Column.IsReadOnly = false;
+                }
+
                 if (prop.PropertyType == typeof(DateOnly))
                 {
                     DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
@@ -95,29 +112,6 @@ namespace HealthSphere.Pages
         {
             Table.SelectedItems.Clear();
             Table.SelectedCells.Clear();
-        }
-
-        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DataGridCellInfo cellInfo = Table.CurrentCell;
-            if (cellInfo != null && cellInfo.IsValid)
-            {
-                object dataObject = cellInfo.Item;
-                int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Patient item && columnIndex == 0)
-                {
-                    item.isSelect = !item.isSelect;
-                    Table.Items.Refresh();
-                    if (item.isSelect == true)
-                    {
-                        CheckList.Add(item);
-                    }
-                    else
-                    {
-                        CheckList.Remove(item);
-                    }
-                }
-            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -143,13 +137,24 @@ namespace HealthSphere.Pages
 
                 Table.ItemsSource = filteredData;
             }
-            //using (ApplicationContext context = new ApplicationContext())
-            //{
-            //    var filteredData = context.patients
-            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
-            //        .ToList();
-            //    Table.ItemsSource = filteredData;
+        }
 
+        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left && sender is DataGrid dataGrid)
+            {
+                DataGridCellInfo cellInfo = Table.CurrentCell;
+                if (cellInfo != null && cellInfo.IsValid)
+                {
+                    object dataObject = cellInfo.Item;
+                    if (dataObject is Patient item)
+                    {
+                        PatientAddWindow window = new PatientAddWindow(item.id, item.last_name, item.first_name, item.patronymic, item.date.ToString(), item.sex);
+                        window.Show();
+                        window.Closed += HandleSecondWindowClosed;
+                    }
+                }
+            }
         }
     }
 }

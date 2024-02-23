@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HealthSphere.Windows;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,6 +77,11 @@ namespace HealthSphere
             {
                 e.Column.Header = prop.DisplayName;
 
+                if (prop.Name == "isSelect")
+                {
+                    e.Column.IsReadOnly = false;
+                }
+
                 if (prop.PropertyType == typeof(DateOnly))
                 {
                     DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
@@ -83,6 +89,7 @@ namespace HealthSphere
                     {
                         textColumn.Binding.StringFormat = "dd.MM.yyyy"; // Формат "день.месяц.год"
                     }
+                    //textColumn.IsReadOnly = true;
                 }
             }
         }
@@ -150,6 +157,11 @@ namespace HealthSphere
             //        .ToList();
             //    Table.ItemsSource = filteredData;
 
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            Table.IsReadOnly = !Table.IsReadOnly;
         }
     }
 }
