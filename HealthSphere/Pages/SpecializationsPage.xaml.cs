@@ -23,8 +23,7 @@ namespace HealthSphere.Pages
     /// </summary>
     public partial class SpecializationsPage : Page
     {
-        //private ApplicationContext dbContext;
-        private List<Specialization> CheckList = new List<Specialization> { }; //ЗАМЕНА
+        private List<Specialization> CheckList = new List<Specialization> { };
         private List<Specialization> items_list;
         public SpecializationsPage()
         {
@@ -49,12 +48,7 @@ namespace HealthSphere.Pages
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            //using (ApplicationContext db = new ApplicationContext())
-            //{
-            //    db.specializations.RemoveRange(CheckList);
-            //    db.SaveChanges();
-            //    CreateTable();
-            //}
+            
         }
         private void CreateTable()
         {
@@ -72,10 +66,6 @@ namespace HealthSphere.Pages
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
-                if (prop.Name == "id")
-                {
-                    e.Column.IsReadOnly = true;
-                }
 
             }
         }
@@ -131,13 +121,6 @@ namespace HealthSphere.Pages
 
                 Table.ItemsSource = filteredData;
             }
-            //using (ApplicationContext context = new ApplicationContext())
-            //{
-            //    var filteredData = context.patients
-            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
-            //        .ToList();
-            //    Table.ItemsSource = filteredData;
-
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HealthSphere.Windows;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -25,8 +26,6 @@ namespace HealthSphere.Pages
     /// </summary>
     public partial class DoctorsPage : Page
     {
-        //private ApplicationContext dbContext;
-        private List<Doctor> CheckList = new List<Doctor> { }; //ЗАМЕНА
         private List<Doctor> items_list;
         public DoctorsPage()
         {
@@ -47,13 +46,26 @@ namespace HealthSphere.Pages
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            
+            DoctorAddWindow window = new DoctorAddWindow();
+            window.Show();
+            window.Closed += HandleSecondWindowClosed;
         }
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
+            List<Doctor> RemoveList = new List<Doctor> { };
+            foreach (var item in Table.Items)
+            {
+                if (item is Doctor doctor)
+                {
+                    if (doctor.isSelect)
+                    {
+                        RemoveList.Add(doctor);
+                    }
+                }
+            }
             using (ApplicationContext db = new ApplicationContext())
             {
-                db.doctors.RemoveRange(CheckList);
+                db.doctors.RemoveRange(RemoveList);
                 db.SaveChanges();
                 CreateTable();
             }
@@ -73,7 +85,7 @@ namespace HealthSphere.Pages
             {
                 e.Column.Header = prop.DisplayName;
 
-                if (prop.Name == "id")
+                if (prop.Name != "isSelect")
                 {
                     e.Column.IsReadOnly = true;
                 }
@@ -115,22 +127,17 @@ namespace HealthSphere.Pages
 
         private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridCellInfo cellInfo = Table.CurrentCell;
-            if (cellInfo != null && cellInfo.IsValid)
+            if (e.ChangedButton == MouseButton.Left && sender is DataGrid dataGrid)
             {
-                object dataObject = cellInfo.Item;
-                int columnIndex = cellInfo.Column.DisplayIndex;
-                if (dataObject is Doctor item && columnIndex == 0)
+                DataGridCellInfo cellInfo = Table.CurrentCell;
+                if (cellInfo != null && cellInfo.IsValid)
                 {
-                    item.isSelect = !item.isSelect;
-                    Table.Items.Refresh();
-                    if (item.isSelect == true)
+                    object dataObject = cellInfo.Item;
+                    if (dataObject is Doctor item)
                     {
-                        CheckList.Add(item);
-                    }
-                    else
-                    {
-                        CheckList.Remove(item);
+                        DoctorAddWindow window = new DoctorAddWindow(item.id, item.last_name, item.first_name, item.patronymic, item.specialization.name_speciality);
+                        window.Show();
+                        window.Closed += HandleSecondWindowClosed;
                     }
                 }
             }
@@ -159,13 +166,6 @@ namespace HealthSphere.Pages
 
                 Table.ItemsSource = filteredData;
             }
-            //using (ApplicationContext context = new ApplicationContext())
-            //{
-            //    var filteredData = context.patients
-            //        .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
-            //        .ToList();
-            //    Table.ItemsSource = filteredData;
-
         }
     }
 }
