@@ -31,17 +31,6 @@ namespace HealthSphere
         {
             InitializeComponent();
             CreateTable();
-
-
-            BitmapImage image = new BitmapImage();
-            using (MemoryStream stream = new MemoryStream(Properties.Resources.search))
-            {
-                image.BeginInit();
-                image.StreamSource = stream;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-            }
-            ImageControl.Source = image;
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -154,6 +143,11 @@ namespace HealthSphere
                     }
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

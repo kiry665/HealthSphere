@@ -59,15 +59,5 @@ namespace HealthSphere.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        public static byte[] search {
-            get {
-                object obj = ResourceManager.GetObject("search", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

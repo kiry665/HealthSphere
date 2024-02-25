@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ITCC.ItemsFilter" Version="1.0.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
@@ -17,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Resource Include="Images\search.png" />
   </ItemGroup>
 
   <ItemGroup>
