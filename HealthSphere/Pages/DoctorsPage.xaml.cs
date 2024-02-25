@@ -65,15 +65,17 @@ namespace HealthSphere.Pages
             {
                 var doctors = db.doctors.Include(d => d.specialization).ToList();
                 Table.ItemsSource = doctors;
+                items_list = doctors;
             }
         }
         private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var prop = e.PropertyDescriptor as PropertyDescriptor;
+            //e.Column.HeaderStyle = (sender as FrameworkElement).FindResource("StandardStyle") as Style;
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
-
+                
                 if (prop.Name != "isSelect")
                 {
                     e.Column.IsReadOnly = true;
@@ -84,8 +86,9 @@ namespace HealthSphere.Pages
                     e.Column = new DataGridTextColumn
                     {
                         Header = "Специализация",
-                        Binding = new Binding("specialization.name_speciality")
-                    };
+                        Binding = new Binding("specialization.name_speciality"),
+                        HeaderStyle = (sender as FrameworkElement).FindResource("FilterStyle") as Style
+                };
                 }
 
                 if (prop.Name == "specializationid")
@@ -101,6 +104,8 @@ namespace HealthSphere.Pages
                         textColumn.Binding.StringFormat = "dd.MM.yyyy"; // Формат "день.месяц.год"
                     }
                 }
+
+                //e.Column.HeaderStyle = (sender as FrameworkElement).FindResource("FilterStyle") as Style;
             }
         }
         public void HandleSecondWindowClosed(object sender, EventArgs e)
@@ -156,5 +161,23 @@ namespace HealthSphere.Pages
                 Table.ItemsSource = filteredData;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            if (clickedButton != null)
+            {
+                if (items_list is List<Doctor> items)
+                {
+                    var filteredData = items
+                        .Where(item => (item.specializationid == 1))
+                        .ToList();
+
+                    Table.ItemsSource = filteredData;
+                }
+            }
+        }
+
+        
     }
 }

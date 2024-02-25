@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:HealthSphere"
              
-             StartupUri="Windows/BasicWindow.xaml">
+             StartupUri="Windows/MenuFilter.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
