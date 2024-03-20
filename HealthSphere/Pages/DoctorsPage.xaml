@@ -15,47 +15,24 @@
     
     <Grid Background="#ffdadada">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"></RowDefinition>
-            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="White">
-            <Button Content="Добавить карточку" Margin="5" Click="Add_Click"/>
-            <Button Content="Удалить выбранное" Margin="5" Click="Remove_Click"/>
-        </StackPanel>
-
-        <Grid Grid.Row="1" Background="White" Margin="1">
+        <Grid Grid.Row="0" Background="White" Margin="1">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Name="ImageControl" Width="24" Height="24" Margin="5"/>
+            <materialDesign:PackIcon Kind="Search" Height="24" Width="24" VerticalAlignment="Center"/>
             <TextBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Поиск" TextChanged="TextBox_TextChanged"></TextBox>
+            <ComboBox Name="spec_cb" Grid.Column="2" FontSize="20" VerticalAlignment="Center" MinWidth="150" SelectionChanged="spec_cb_SelectionChanged" materialDesign:HintAssist.Hint="Специальность"></ComboBox>
         </Grid>
 
-        <DataGrid Grid.Row="2" x:Name="Table" IsReadOnly="False" CanUserAddRows="False" SelectionChanged="Table_SelectionChanged" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="FilterStyle" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                    <Setter Property="ContentTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="{Binding}" Margin="0 0 10 0" HorizontalAlignment="Left"/>
-                                    <Button Style="{StaticResource MaterialDesignIconButton}" Tag="{Binding DisplayIndex, RelativeSource={RelativeSource AncestorType={x:Type DataGridColumnHeader}}}" Height="16" Width="16" Click="Button_Click"  BorderThickness="0" HorizontalAlignment="Right">
-                                        <materialDesign:PackIcon Kind="Filter" Width="16" Height="16" VerticalAlignment="Center"/>
-                                    </Button>
-
-                                </StackPanel>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-                <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="StandardStyle" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                    
-                </Style>
-            </DataGrid.Resources>
+        <DataGrid Grid.Row="1" x:Name="Table" IsReadOnly="False" CanUserAddRows="False" SelectionChanged="Table_SelectionChanged" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
+            
         </DataGrid>
     </Grid>
 </Page>

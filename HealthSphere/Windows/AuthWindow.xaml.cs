@@ -41,9 +41,9 @@ namespace HealthSphere.Windows
             }
             if (user != null)
             {
-                BasicWindow window = new BasicWindow();
-                window.Show();
-                this.Close();
+                //BasicWindow window = new BasicWindow();
+                //window.Show();
+                //this.Close();
             }
         }
     }

@@ -24,20 +24,17 @@ namespace HealthSphere
         [DisplayName("№")]
         public int id { get; set; }
 
-        [DisplayName("Фамилия")]
-        public string last_name { get; set; }
-
-        [DisplayName("Имя")]
-        public string first_name { get; set; }
-
-        [DisplayName("Отчество")]
-        public string patronymic { get; set; }
+        [DisplayName("Фамилия Имя Отчество")]
+        public string fio { get; set; }
 
         [DisplayName("Пол")]
         public string sex { get; set; }
 
         [DisplayName("Дата рождения")]
         public DateOnly date { get; set; }
+
+        [DisplayName("№ Полиса")]
+        public int policy_number { get; set; }
         
     }
 
@@ -50,16 +47,9 @@ namespace HealthSphere
         [DisplayName("№")]
         public int id { get; set; }
 
-        [DisplayName("Фамилия")]
-        public string last_name { get; set; }
+        [DisplayName("Фамилия Имя Отчество")]
+        public string fio { get; set; }
 
-        [DisplayName("Имя")]
-        public string first_name { get; set; }
-
-        [DisplayName("Отчество")]
-        public string patronymic { get; set; }
-
-        
         public int specializationid { get; set; }
 
         public virtual Specialization specialization { get; set; }
@@ -76,5 +66,13 @@ namespace HealthSphere
 
         [DisplayName("Название специальности")]
         public string name_speciality { get; set; }
+    }
+
+    public class Records
+    {
+        public int id { get; set; }
+        public int patienid { get; set; }
+        public DateOnly date { get; set; }
+        public TimeOnly time { get; set; }
     }
 }

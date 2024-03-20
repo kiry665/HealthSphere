@@ -15,30 +15,18 @@ using System.Windows.Shapes;
 namespace HealthSphere.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MenuFilter.xaml
+    /// Логика взаимодействия для RecordWindow.xaml
     /// </summary>
-    public partial class MenuFilter : Window
+    public partial class RecordWindow : Window
     {
-        public MenuFilter()
+        public RecordWindow()
         {
             InitializeComponent();
             using(ApplicationContext db = new ApplicationContext())
             {
-                var list = db.specializations.ToList();
-                itemsListBox.ItemsSource = list;
+                List<string> list = db.patients.Select(d => d.fio).ToList();
+                patients_CB.ItemsSource = list;
             }
-
-
-        }
-
-        private void Ok_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

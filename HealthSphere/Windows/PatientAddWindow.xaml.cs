@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,15 +29,19 @@ namespace HealthSphere.Windows
         {
             InitializeComponent();
         }
-        public PatientAddWindow(int number, string last_name, string first_name, string patronymic, string date, string sex)
+        public PatientAddWindow(int number, string fio, string date, string sex, int policy)
         {
             InitializeComponent();
             id = number;
             change = true;
-            last_nameTB.Text = last_name;
-            first_nameTB.Text = first_name;
-            patronymic_nameTB.Text = patronymic;
+
+            string[] substings = fio.Split(' ');
+            last_nameTB.Text = substings[0];
+            first_nameTB.Text = substings[1];
+            patronymic_nameTB.Text = substings[2];
+
             birthday.Text = date;
+            policyTB.Text = policy.ToString();
             if(sex == "М")
             {
                 male.IsChecked = true;
@@ -76,9 +81,15 @@ namespace HealthSphere.Windows
                 female.Foreground = Brushes.Red;
                 flag = false;
             }
+            if(policyTB.Text == "" || policyTB.Text.Length < 6)
+            {
+                policyTB.Foreground = Brushes.Red;
+                flag = false;
+            }
             if (flag && !change)
             {
-                Patient patient = new Patient { last_name = last_nameTB.Text, first_name = first_nameTB.Text, patronymic = patronymic_nameTB.Text, date = DateOnly.Parse(birthday.Text), sex = male.IsChecked.GetValueOrDefault() ? "М" : "Ж"};
+                string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
+                Patient patient = new Patient { fio = fio,  date = DateOnly.Parse(birthday.Text), sex = male.IsChecked.GetValueOrDefault() ? "М" : "Ж", policy_number = Int32.Parse(policyTB.Text)};
                 using(ApplicationContext db = new ApplicationContext())
                 {
                     db.patients.Add(patient);
@@ -93,11 +104,11 @@ namespace HealthSphere.Windows
                     var patient = db.patients.FirstOrDefault(p => p.id == id);
                     if(patient != null)
                     {
-                        patient.last_name = last_nameTB.Text;
-                        patient.first_name = first_nameTB.Text;
-                        patient.patronymic = patronymic_nameTB.Text;
+                        string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
+                        patient.fio = fio;
                         patient.date = DateOnly.Parse(birthday.Text);
                         patient.sex = male.IsChecked.GetValueOrDefault() ? "М" : "Ж";
+                        patient.policy_number = Int32.Parse(policyTB.Text);
                     }
                     db.SaveChanges();
                     this.Close();
@@ -138,6 +149,12 @@ namespace HealthSphere.Windows
             }
         }
 
-        
+        private void policyTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Regex.IsMatch(e.Text, @"^\d$"))
+            {
+                e.Handled = true; // Если это не число, отменяем событие
+            }
+        }
     }
 }

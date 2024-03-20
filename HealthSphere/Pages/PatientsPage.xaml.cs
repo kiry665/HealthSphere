@@ -33,33 +33,7 @@ namespace HealthSphere
             CreateTable();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            PatientAddWindow window = new PatientAddWindow();
-            window.Closed += HandleSecondWindowClosed;
-            window.Show();
-        }
-        private void Remove_Click(object sender, RoutedEventArgs e)
-        {
-            List<Patient> RemoveList = new List<Patient> { };
-            foreach (var item in Table.Items)
-            {
-                if (item is Patient patient)
-                {
-                    if (patient.isSelect)
-                    {
-                        RemoveList.Add(patient);
-                    }
-                }
-            }
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.patients.RemoveRange(RemoveList);
-                db.SaveChanges();
-                CreateTable();
-            }
-        }
-        private void CreateTable()
+        public void CreateTable()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -112,15 +86,10 @@ namespace HealthSphere
         }
         private void UpdateDataGrid(string searchTerm)
         {
-            string[] substrings = searchTerm.Split(' ');
-            string Last_name = substrings[0];
-            string First_name = (substrings.Length >= 2) ? substrings[1] : "";
-            string Patronymic = (substrings.Length >= 3) ? substrings[2] : "";
-
             if (items_list is List<Patient> items)
             {
                 var filteredData = items
-                    .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
+                    .Where(item => (item.fio.Contains(searchTerm)) || item.policy_number.ToString().Contains(searchTerm))
                     .ToList();
 
                 Table.ItemsSource = filteredData;
@@ -137,17 +106,26 @@ namespace HealthSphere
                     object dataObject = cellInfo.Item;
                     if (dataObject is Patient item)
                     {
-                        PatientAddWindow window = new PatientAddWindow(item.id, item.last_name, item.first_name, item.patronymic, item.date.ToString(), item.sex);
+                        PatientInfoWindow window = new PatientInfoWindow(item.id, item.fio, item.date.ToString(), item.sex, item.policy_number);
                         window.Show();
-                        window.Closed += HandleSecondWindowClosed;
                     }
                 }
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Change_Click(object sender, RoutedEventArgs e)
         {
-
+            DataGridCellInfo cellInfo = Table.CurrentCell;
+            if (cellInfo != null && cellInfo.IsValid)
+            {
+                object dataObject = cellInfo.Item;
+                if (dataObject is Patient item)
+                {
+                    PatientAddWindow window = new PatientAddWindow(item.id, item.fio, item.date.ToString(), item.sex, item.policy_number);
+                    window.Show();
+                    window.Closed += (sender, e) => { CreateTable(); };
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,38 +28,15 @@ namespace HealthSphere.Pages
     public partial class DoctorsPage : Page
     {
         private List<Doctor> items_list;
+        private string search_fio = "";
+        private string search_spec = "";
         public DoctorsPage()
         {
             InitializeComponent();
             CreateTable();
+            InitComboBox();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            DoctorAddWindow window = new DoctorAddWindow();
-            window.Show();
-            window.Closed += HandleSecondWindowClosed;
-        }
-        private void Remove_Click(object sender, RoutedEventArgs e)
-        {
-            List<Doctor> RemoveList = new List<Doctor> { };
-            foreach (var item in Table.Items)
-            {
-                if (item is Doctor doctor)
-                {
-                    if (doctor.isSelect)
-                    {
-                        RemoveList.Add(doctor);
-                    }
-                }
-            }
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.doctors.RemoveRange(RemoveList);
-                db.SaveChanges();
-                CreateTable();
-            }
-        }
         private void CreateTable()
         {
             using (ApplicationContext db = new ApplicationContext())
@@ -68,10 +46,18 @@ namespace HealthSphere.Pages
                 items_list = doctors;
             }
         }
+        public void InitComboBox()
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                List<String> specializations = db.specializations.Select(s => s.name_speciality).ToList();
+                specializations.Insert(0, "");
+                spec_cb.ItemsSource = specializations;
+            }
+        }
         private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var prop = e.PropertyDescriptor as PropertyDescriptor;
-            //e.Column.HeaderStyle = (sender as FrameworkElement).FindResource("StandardStyle") as Style;
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
@@ -87,8 +73,8 @@ namespace HealthSphere.Pages
                     {
                         Header = "Специализация",
                         Binding = new Binding("specialization.name_speciality"),
-                        HeaderStyle = (sender as FrameworkElement).FindResource("FilterStyle") as Style
-                };
+                        IsReadOnly = true
+                    };
                 }
 
                 if (prop.Name == "specializationid")
@@ -104,8 +90,6 @@ namespace HealthSphere.Pages
                         textColumn.Binding.StringFormat = "dd.MM.yyyy"; // Формат "день.месяц.год"
                     }
                 }
-
-                //e.Column.HeaderStyle = (sender as FrameworkElement).FindResource("FilterStyle") as Style;
             }
         }
         public void HandleSecondWindowClosed(object sender, EventArgs e)
@@ -129,9 +113,7 @@ namespace HealthSphere.Pages
                     object dataObject = cellInfo.Item;
                     if (dataObject is Doctor item)
                     {
-                        DoctorAddWindow window = new DoctorAddWindow(item.id, item.last_name, item.first_name, item.patronymic, item.specialization.name_speciality);
-                        window.Show();
-                        window.Closed += HandleSecondWindowClosed;
+                        
                     }
                 }
             }
@@ -141,43 +123,26 @@ namespace HealthSphere.Pages
         {
             if (sender is TextBox textBox)
             {
-                string text = textBox.Text;
-                UpdateDataGrid(text);
+                search_fio = textBox.Text;
+                UpdateDataGrid();
             }
         }
-        private void UpdateDataGrid(string searchTerm)
+        private void UpdateDataGrid()
         {
-            string[] substrings = searchTerm.Split(' ');
-            string Last_name = substrings[0];
-            string First_name = (substrings.Length >= 2) ? substrings[1] : "";
-            string Patronymic = (substrings.Length >= 3) ? substrings[2] : "";
-
             if (items_list is List<Doctor> items)
             {
                 var filteredData = items
-                    .Where(item => item.last_name.Contains(Last_name) && item.first_name.Contains(First_name) && item.patronymic.Contains(Patronymic))
+                    .Where(item => item.fio.Contains(search_fio) && item.specialization.name_speciality.Contains(search_spec))
                     .ToList();
 
                 Table.ItemsSource = filteredData;
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void spec_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Button clickedButton = sender as Button;
-            if (clickedButton != null)
-            {
-                if (items_list is List<Doctor> items)
-                {
-                    var filteredData = items
-                        .Where(item => (item.specializationid == 1))
-                        .ToList();
-
-                    Table.ItemsSource = filteredData;
-                }
-            }
+            search_spec = spec_cb.SelectedItem.ToString();
+            UpdateDataGrid();
         }
-
-        
     }
 }

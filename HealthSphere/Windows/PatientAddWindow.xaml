@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HealthSphere.Windows"
         mc:Ignorable="d"
-        Title="PatientAddWindow" Height="650" Width="800">
+        Title="PatientAddWindow" Height="700" Width="800">
     <Grid Background="#ffdadada">
         <Border Background="White" Margin="20" CornerRadius="20" Padding="30" VerticalAlignment="Center" MinWidth="600" MaxWidth="800">
             <StackPanel>
@@ -20,10 +20,12 @@
                 <TextBlock FontSize="20" Margin="0 0 0 5">Дата рождения</TextBlock>
                 <DatePicker Name="birthday" materialDesign:HintAssist.Hint="Введите дату рождения" FontSize="20" Margin="0 0 0 5" KeyDown="DateChanged" CalendarOpened="DateChanged"/>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Пол</TextBlock>
-                <StackPanel Orientation="Horizontal" Height="40" Margin="0 0 0 20">
+                <StackPanel Orientation="Horizontal" Height="40" Margin="0 0 0 5">
                     <RadioButton x:Name="male" FontSize="20" Content="М" Margin="0 0 20 0" Checked="Checked"/>
                     <RadioButton Name="female"  FontSize="20"  Content="Ж" Checked="Checked"/>
                 </StackPanel>
+                <TextBlock FontSize="20" Margin="0 0 0 5">№ полиса</TextBlock>
+                <TextBox Name="policyTB" MaxLength="6" materialDesign:HintAssist.Hint="Введите номер полиса" FontSize="20" Margin="0 0 0 20" TextChanged="TextChanged" PreviewTextInput="policyTB_PreviewTextInput"></TextBox>
                 <Button Content="Сохранить" Click="Button_Click"/>
             </StackPanel>
         </Border>

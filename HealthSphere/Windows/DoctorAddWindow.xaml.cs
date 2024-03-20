@@ -27,10 +27,7 @@ namespace HealthSphere.Windows
             using (ApplicationContext db = new ApplicationContext())
             {
                 List<string> list = db.specializations.Select(s => s.name_speciality).ToList();
-                foreach(var item in list)
-                {
-                    spec_cb.Items.Add(item);
-                }
+                spec_cb.ItemsSource = list;
             }
         }
 
@@ -81,10 +78,11 @@ namespace HealthSphere.Windows
             {
                 using (ApplicationContext db = new ApplicationContext())
                 {
+                    string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
                     int id = db.specializations.Where(s => s.name_speciality == spec_cb.SelectedItem.ToString())
                         .Select(p => p.id)
                         .FirstOrDefault();
-                    Doctor doctor = new Doctor { last_name = last_nameTB.Text, first_name = first_nameTB.Text, patronymic = patronymic_nameTB.Text, specializationid = id };
+                    Doctor doctor = new Doctor { fio = fio, specializationid = id };
                     db.doctors.Add(doctor);
                     db.SaveChanges();
                     this.Close();
@@ -99,11 +97,10 @@ namespace HealthSphere.Windows
                         .Select(p => p.id)
                         .FirstOrDefault();
 
+                    string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
                     if (doctor != null)
                     {
-                        doctor.last_name = last_nameTB.Text;
-                        doctor.first_name = first_nameTB.Text;
-                        doctor.patronymic = patronymic_nameTB.Text;
+                        doctor.fio = fio;
                         doctor.specializationid = spec_id;
                     }
                     db.SaveChanges();
