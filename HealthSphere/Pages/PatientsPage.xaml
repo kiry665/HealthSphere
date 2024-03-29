@@ -26,7 +26,7 @@
             <TextBox Grid.Column="1" FontSize="20" VerticalAlignment="Center" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Поиск" TextChanged="TextBox_TextChanged"></TextBox>
         </Grid>
 
-        <DataGrid Grid.Row="1" x:Name="Table" IsReadOnly="False" CanUserAddRows="False" SelectionChanged="Table_SelectionChanged" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
+        <DataGrid Grid.Row="1" x:Name="Table" IsReadOnly="True" CanUserAddRows="False" AutoGeneratingColumn="Table_AutoGeneratingColumn" MouseDoubleClick="Table_MouseDoubleClick">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Изменить" Click="Change_Click" />

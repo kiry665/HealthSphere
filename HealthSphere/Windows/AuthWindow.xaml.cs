@@ -41,9 +41,12 @@ namespace HealthSphere.Windows
             }
             if (user != null)
             {
-                //BasicWindow window = new BasicWindow();
-                //window.Show();
-                //this.Close();
+                if(user.level == 1)
+                {
+                    RegistrarWindow window = new RegistrarWindow();
+                    window.Show();
+                    this.Close();
+                }
             }
         }
     }

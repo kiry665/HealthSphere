@@ -50,11 +50,6 @@ namespace HealthSphere
             {
                 e.Column.Header = prop.DisplayName;
 
-                if (prop.Name != "isSelect")
-                {
-                    e.Column.IsReadOnly = true;
-                }
-
                 if (prop.PropertyType == typeof(DateOnly))
                 {
                     DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
@@ -68,12 +63,6 @@ namespace HealthSphere
         public void HandleSecondWindowClosed(object sender, EventArgs e)
         {
             CreateTable();
-        }
-
-        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Table.SelectedItems.Clear();
-            Table.SelectedCells.Clear();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

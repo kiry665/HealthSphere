@@ -86,33 +86,6 @@ namespace HealthSphere.Pages
                 }
             }
         }
-        public void HandleSecondWindowClosed(object sender, EventArgs e)
-        {
-            CreateTable();
-        }
-
-        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Table.SelectedItems.Clear();
-            Table.SelectedCells.Clear();
-        }
-
-        private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left && sender is DataGrid dataGrid)
-            {
-                DataGridCellInfo cellInfo = Table.CurrentCell;
-                if (cellInfo != null && cellInfo.IsValid)
-                {
-                    object dataObject = cellInfo.Item;
-                    if (dataObject is Doctor item)
-                    {
-                        
-                    }
-                }
-            }
-        }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox textBox)
