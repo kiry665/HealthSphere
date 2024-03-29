@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +21,72 @@ namespace HealthSphere.Windows
     /// </summary>
     public partial class PatientInfoWindow : Window
     {
+        private int id;
         public PatientInfoWindow()
         {
             InitializeComponent();
         }
-        public PatientInfoWindow(int number, string fio, string date, string sex, int policy)
+        public PatientInfoWindow(int id, string fio, string date, string sex, int policy)
         {
             InitializeComponent();
             fio_TB.Text = fio;
-        } 
+            
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                var records = db.records.Where(r => r.patientid == id).Include(r => r.doctor).ToList();
+                Table_History.ItemsSource = records;
+                Table_Current.ItemsSource = records.Where(r => r.time < TimeOnly.FromDateTime(DateTime.Now));
+            }
+        }
+
+        private void Table_History_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            var prop = e.PropertyDescriptor as PropertyDescriptor;
+            if (prop != null)
+            {
+                e.Column.Header = prop.DisplayName;
+            }
+
+            if (prop.Name == "doctor")
+            {
+                e.Column = new DataGridTextColumn
+                {
+                    Header = "Доктор",
+                    Binding = new Binding("doctor.fio"),
+                    IsReadOnly = true
+                };
+            }
+
+            if (prop.PropertyType == typeof(DateOnly))
+            {
+                DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
+                if (textColumn != null)
+                {
+                    textColumn.Binding.StringFormat = "dd.MM.yyyy";
+                }
+            }
+
+            if (new[] { "patientid", "doctorid" }.Contains(prop.Name))
+            {
+                e.Cancel = true;
+            }
+
+            if (prop.PropertyType == typeof(TimeOnly))
+            {
+                DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
+                if (textColumn != null)
+                {
+                    Binding binding = (Binding)textColumn.Binding;
+                    binding.StringFormat = "HH:mm";
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RecordWindow window = new RecordWindow(fio_TB.Text);
+            window.Show();
+            this.Close();
+        }
     }
 }

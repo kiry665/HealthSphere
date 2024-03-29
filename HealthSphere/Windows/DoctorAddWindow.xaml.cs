@@ -19,36 +19,14 @@ namespace HealthSphere.Windows
     /// </summary>
     public partial class DoctorAddWindow : Window
     {
-        private bool change = false;
-        private int id;
         public DoctorAddWindow()
         {
             InitializeComponent();
             using (ApplicationContext db = new ApplicationContext())
             {
                 List<string> list = db.specializations.Select(s => s.name_speciality).ToList();
-                spec_cb.ItemsSource = list;
+                spec_cb.ItemsSource = list.Order();
             }
-        }
-
-        public DoctorAddWindow(int id, string last_name, string first_name, string patronymic, string spec)
-        {
-            InitializeComponent();
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                List<string> list = db.specializations.Select(s => s.name_speciality).ToList();
-                foreach (var item in list)
-                {
-                    spec_cb.Items.Add(item);
-                }
-            }
-
-            change = true;
-            this.id = id;
-            last_nameTB.Text = last_name;
-            first_nameTB.Text = first_name;
-            patronymic_nameTB.Text = patronymic;
-            spec_cb.SelectedIndex = spec_cb.Items.IndexOf(spec);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -74,38 +52,17 @@ namespace HealthSphere.Windows
                 spec_cb.Foreground = Brushes.Red;
                 flag = false;
             }
-            if (flag && !change)
+            if (!flag) return;
+            using (ApplicationContext db = new ApplicationContext())
             {
-                using (ApplicationContext db = new ApplicationContext())
-                {
-                    string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
-                    int id = db.specializations.Where(s => s.name_speciality == spec_cb.SelectedItem.ToString())
-                        .Select(p => p.id)
-                        .FirstOrDefault();
-                    Doctor doctor = new Doctor { fio = fio, specializationid = id };
-                    db.doctors.Add(doctor);
-                    db.SaveChanges();
-                    this.Close();
-                }
-            }
-            if(flag && change)
-            {
-                using(ApplicationContext db = new ApplicationContext())
-                {
-                    var doctor = db.doctors.FirstOrDefault(s => s.id == id);
-                    int spec_id = db.specializations.Where(s => s.name_speciality == spec_cb.SelectedItem.ToString())
-                        .Select(p => p.id)
-                        .FirstOrDefault();
-
-                    string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
-                    if (doctor != null)
-                    {
-                        doctor.fio = fio;
-                        doctor.specializationid = spec_id;
-                    }
-                    db.SaveChanges();
-                    this.Close();
-                }
+                string fio = last_nameTB.Text.Trim() + " " + first_nameTB.Text.Trim() + " " + patronymic_nameTB.Text.Trim();
+                int id = db.specializations.Where(s => s.name_speciality == spec_cb.SelectedItem.ToString())
+                    .Select(p => p.id)
+                    .FirstOrDefault();
+                Doctor doctor = new Doctor { fio = fio, specializationid = id };
+                db.doctors.Add(doctor);
+                db.SaveChanges();
+                this.Close();
             }
         }
         private void spec_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,7 +73,6 @@ namespace HealthSphere.Windows
                 cb.Foreground = Brushes.Black;
             }
         }
-
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;

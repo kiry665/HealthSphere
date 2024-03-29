@@ -8,7 +8,10 @@ namespace HealthSphere
         public DbSet<Patient> patients { get; set; } = null!;
         public DbSet<Doctor> doctors { get; set; } = null!;
         public DbSet<Specialization> specializations { get; set; } = null!;
-        
+        public DbSet<Records> records { get; set; } = null!;
+        public DbSet<Times> times { get; set; } = null!;
+
+
 
         public ApplicationContext()
         {

@@ -11,21 +11,20 @@
     <Grid Background="#ffdadada">
         <Border Background="White" Margin="20" CornerRadius="20" Padding="30" VerticalAlignment="Center" MinWidth="600" MaxWidth="800">
             <StackPanel>
-                <TextBlock FontSize="30" FontWeight="Bold">Пациент</TextBlock>
-                <TextBlock Name="fio_TB" FontSize="20" Margin="0 0 0 5"></TextBlock>
+                <TextBlock Name="fio_TB" FontSize="30" FontWeight="Bold" Margin="0 0 0 10"></TextBlock>
                 <Expander Margin="0 0 0 5">
                     <Expander.Header>
                         <TextBlock FontSize="20">Текущие записи</TextBlock>
                     </Expander.Header>
-                    <DataGrid Name="Current"/>
+                    <DataGrid Name="Table_Current" AutoGeneratingColumn="Table_History_AutoGeneratingColumn"/>
                 </Expander>
                 <Expander Margin="0 0 0 5">
                     <Expander.Header>
                         <TextBlock FontSize="20">История записей</TextBlock>
                     </Expander.Header>
-                    <DataGrid Name="History"/>
+                    <DataGrid Name="Table_History" AutoGeneratingColumn="Table_History_AutoGeneratingColumn" />
                 </Expander>
-                <Button FontSize="20" Height="45">Записать на приём</Button>
+                <Button FontSize="20" Height="45" Click="Button_Click">Записать на приём</Button>
             </StackPanel>
         </Border>
     </Grid>

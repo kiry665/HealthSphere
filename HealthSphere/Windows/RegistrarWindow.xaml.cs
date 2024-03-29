@@ -31,7 +31,8 @@ namespace HealthSphere.Windows
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-
+            RecordWindow window = new RecordWindow();
+            window.Show();
         }
 
         private void NewPatient_Click(object sender, RoutedEventArgs e)

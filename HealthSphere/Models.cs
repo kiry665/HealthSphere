@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,10 +18,6 @@ namespace HealthSphere
 
     public class Patient
     {
-        [NotMapped]
-        [DisplayName(" ")]
-        public bool isSelect { get; set; } = false;
-
         [DisplayName("№")]
         public int id { get; set; }
 
@@ -40,10 +37,6 @@ namespace HealthSphere
 
     public class Doctor
     {
-        [NotMapped]
-        [DisplayName(" ")]
-        public bool isSelect { get; set; } = false;
-
         [DisplayName("№")]
         public int id { get; set; }
 
@@ -52,6 +45,7 @@ namespace HealthSphere
 
         public int specializationid { get; set; }
 
+        public int shiftid { get; set; }
         public virtual Specialization specialization { get; set; }
     }
 
@@ -70,9 +64,25 @@ namespace HealthSphere
 
     public class Records
     {
+        [DisplayName("№")]
         public int id { get; set; }
-        public int patienid { get; set; }
+
+        public int patientid { get; set; }
+        public int doctorid { get; set; }
+
+        [DisplayName("Дата")]
         public DateOnly date { get; set; }
+
+        [DisplayName("Время")]
         public TimeOnly time { get; set; }
+
+        public virtual Doctor doctor { get; set; }
+    }
+
+    public class Times
+    {
+        public int id { get; set; }
+        public TimeOnly time { get; set; }
+        public int shiftid { get; set; }
     }
 }

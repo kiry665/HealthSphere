@@ -5,24 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HealthSphere.Windows"
         mc:Ignorable="d"
-        Title="RecordWindow" Height="450" Width="800">
+        Title="RecordWindow" Height="700" Width="800">
     <Grid Background="#ffdadada">
         <Border Background="White" Margin="20" CornerRadius="20" VerticalAlignment="Center" Padding="30">
             <StackPanel>
                 <TextBlock FontSize="30" FontWeight="Bold" Margin="5">Запись на приём</TextBlock>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Пациент</TextBlock>
                 <ComboBox Name="patients_CB" IsEditable="True" FontSize="20" Margin="0 0 0 5" IsTextSearchEnabled="True"></ComboBox>
+                <TextBlock FontSize="20" Margin="0 0 0 5">Специальность врача</TextBlock>
+                <ComboBox Name="specializations_CB" IsEditable="False" FontSize="20" Margin="0 0 0 5" IsTextSearchEnabled="True" SelectionChanged="specialization_CB_SelectionChanged"></ComboBox>
                 <TextBlock FontSize="20" Margin="0 0 0 5">Врач</TextBlock>
-                <ComboBox FontSize="20" Margin="0 0 0 5"></ComboBox>
-                <Grid>
-                    <TabControl>
-                        <TabItem Header="Понедельник"></TabItem>
-                        <TabItem Header="Понедельник"></TabItem>
-                        <TabItem Header="Понедельник"></TabItem>
-                        <TabItem Header="Понедельник"></TabItem>
-                        <TabItem Header="Понедельник"></TabItem>
-                    </TabControl>
-                </Grid>
+                <ComboBox Name="doctors_CB" FontSize="20" Margin="0 0 0 5" SelectionChanged="doctors_CB_SelectionChanged"></ComboBox>
+                <TextBlock FontSize="20" Margin="0 0 0 5">Дата</TextBlock>
+                <DatePicker Name="datePicker" FontSize="20" IsEnabled="False" SelectedDateChanged="datePicker_SelectedDateChanged"></DatePicker>
+                <TextBlock FontSize="20" Margin="0 0 0 5">Время</TextBlock>
+                <TextBox Name="time_tb" FontSize="20" Margin="0 0 0 5" IsReadOnly="True"></TextBox>
+                <ListBox Name="times_list" Height="100" FontSize="20" Margin="0 0 0 5" SelectionChanged="times_list_SelectionChanged"/>
+                <Button Name="record_button" IsEnabled="False" Content="Записать" Height="40" FontSize="20" Click="Button_Click"></Button>
             </StackPanel>
         </Border>
     </Grid>

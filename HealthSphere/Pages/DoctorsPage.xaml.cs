@@ -61,12 +61,6 @@ namespace HealthSphere.Pages
             if (prop != null)
             {
                 e.Column.Header = prop.DisplayName;
-                
-                if (prop.Name != "isSelect")
-                {
-                    e.Column.IsReadOnly = true;
-                }
-
                 if (prop.Name == "specialization")
                 {
                     e.Column = new DataGridTextColumn
@@ -77,7 +71,7 @@ namespace HealthSphere.Pages
                     };
                 }
 
-                if (prop.Name == "specializationid")
+                if (new[] { "specializationid", "shiftid" }.Contains(prop.Name))
                 {
                     e.Cancel = true;
                 }
