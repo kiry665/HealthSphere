@@ -6,12 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HealthSphere.Windows"
         mc:Ignorable="d"
-        Title="PatientInfoWindow" Height="700" Width="850">
+        Title="Карточка пациента" Height="700" Width="850">
     
     <Grid Background="#ffdadada">
         <Border Background="White" Margin="20" CornerRadius="20" Padding="30" VerticalAlignment="Center" MinWidth="600" MaxWidth="800">
             <StackPanel>
                 <TextBlock Name="fio_TB" FontSize="30" FontWeight="Bold" Margin="0 0 0 10"></TextBlock>
+                <TextBlock Name="birth_TB" Text="Дата рождения: " FontSize="20" Margin="0 0 0 5"></TextBlock>
+                <TextBlock Name="policy_TB" Text="№ полиса: " FontSize="20" Margin="0 0 0 5"></TextBlock>
                 <Expander Margin="0 0 0 5">
                     <Expander.Header>
                         <TextBlock FontSize="20">Текущие записи</TextBlock>

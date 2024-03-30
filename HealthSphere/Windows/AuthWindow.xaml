@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:HealthSphere.Windows"
         xmlns:resx="clr-namespace:HealthSphere.Properties"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="450" Width="800">
+        Title="Авторизация" Height="450" Width="800">
     <Grid Background="#ffdadada">
         <Border Background="White" Margin="20" CornerRadius="20" MinWidth="600" MaxWidth="800" VerticalAlignment="Center" Padding="30">
             <StackPanel>

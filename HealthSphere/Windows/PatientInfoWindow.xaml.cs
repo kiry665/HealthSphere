@@ -30,6 +30,8 @@ namespace HealthSphere.Windows
         {
             InitializeComponent();
             fio_TB.Text = fio;
+            birth_TB.Text += date;
+            policy_TB.Text += policy.ToString();
             this.id = id;
             CreateTables();
         }
