@@ -9,10 +9,10 @@
         Title="DoctorWindow" Height="450" Width="800">
     <Grid>
         <TabControl>
-            <TabItem>
+            <TabItem Header="Приём пациентов">
                 
             </TabItem>
-            <TabItem>
+            <TabItem Header="Пациенты">
 
             </TabItem>
         </TabControl>

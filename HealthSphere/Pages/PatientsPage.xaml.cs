@@ -32,15 +32,13 @@ namespace HealthSphere
             InitializeComponent();
             CreateTable();
         }
-
         public void CreateTable()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 Table.ItemsSource = null;
-                ObservableCollection<Patient> items = new ObservableCollection<Patient>(db.patients);
-                Table.ItemsSource = items.ToList();
-                items_list = items.ToList();
+                Table.ItemsSource = db.patients.ToList();
+                items_list = db.patients.ToList();
             }
         }
         private void Table_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -64,7 +62,6 @@ namespace HealthSphere
         {
             CreateTable();
         }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox textBox)
@@ -84,7 +81,6 @@ namespace HealthSphere
                 Table.ItemsSource = filteredData;
             }
         }
-
         private void Table_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left && sender is DataGrid dataGrid)
@@ -101,7 +97,6 @@ namespace HealthSphere
                 }
             }
         }
-
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             DataGridCellInfo cellInfo = Table.CurrentCell;
