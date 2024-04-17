@@ -10,10 +10,21 @@
     <Grid>
         <TabControl>
             <TabItem Header="Приём пациентов">
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ComboBox Name="DateCB" Grid.Row="0" Margin="5" FontSize="20" Height="40" SelectionChanged="DateCB_SelectionChanged" />
+                    <DataGrid Name="Records" Grid.Row="1" IsReadOnly="True" CanUserAddRows="False" AutoGeneratingColumn="Records_AutoGeneratingColumn" MouseDoubleClick="Records_MouseDoubleClick"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Пациенты">
-
+                <Grid>
+                    <DataGrid Name="History">
+                        
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

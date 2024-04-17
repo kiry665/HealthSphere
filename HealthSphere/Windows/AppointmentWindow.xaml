@@ -1,0 +1,25 @@
+﻿<Window x:Class="HealthSphere.Windows.AppointmentWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HealthSphere.Windows"
+        mc:Ignorable="d"
+        Title="Приём у врача" Height="650" Width="800">
+    <Grid Background="#ffdadada">
+        <Border Background="White" Margin="20" CornerRadius="20" Padding="30" VerticalAlignment="Center" MinWidth="600">
+            <StackPanel>
+                <TextBlock Name="fio_TB" FontSize="30" FontWeight="Bold" Margin="0 0 0 10"></TextBlock>
+                <TextBlock Name="birth_TB" Text="Дата рождения: " FontSize="20" Margin="0 0 0 5"></TextBlock>
+                <TextBlock Name="policy_TB" Text="№ полиса: " FontSize="20" Margin="0 0 0 5"></TextBlock>
+                <TextBlock Text="Диагноз по МКБ" FontSize="20" Margin="0 0 0 5"/>
+                <ComboBox Name="mkbCB" FontSize="20" Margin="0 0 0 5" IsTextSearchEnabled="True" IsEditable="True" SelectionChanged="mkbCB_SelectionChanged"/>
+                <TextBlock Name="mkbTB"/>
+                <TextBlock Text="Результаты осмотра" FontSize="20" Margin="0 0 0 5"/>
+                <TextBox Name="resultTB" Margin="0 0 0 5" TextWrapping="Wrap" FontSize="20" Height="200" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                <Button Name="SaveButton" Content="Сохранить" Margin="0 0 0 5" Click="SaveButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

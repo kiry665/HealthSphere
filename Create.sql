@@ -48,7 +48,27 @@ CREATE TABLE Records(
     Doctorid INTEGER,
     Date DATE,
     Time TIME,
+    Completed BOOLEAN DEFAULT False,
     FOREIGN KEY (Patientid) REFERENCES Patients(ID) ON DELETE CASCADE ,
     FOREIGN KEY (Doctorid) REFERENCES Doctors(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Mkb(
+    ID SERIAL PRIMARY KEY,
+    Code TEXT,
+    Description TEXT
+);
+
+CREATE TABLE Appointments(
+    ID SERIAL PRIMARY KEY,
+    Recordid INTEGER,
+    Mkbid INTEGER,
+    Doctorid INTEGER,
+    Patientid INTEGER,
+    Result TEXT,
+    FOREIGN KEY (Recordid) REFERENCES Records(ID),
+    FOREIGN KEY (Mkbid) REFERENCES Mkb(ID),
+    FOREIGN KEY (Doctorid) REFERENCES Doctors(ID),
+    FOREIGN KEY (Patientid) REFERENCES Patients(ID)
 );
 

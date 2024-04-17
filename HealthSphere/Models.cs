@@ -47,6 +47,7 @@ namespace HealthSphere
         public int specializationid { get; set; }
 
         public int shiftid { get; set; }
+        public int userid { get; set; }
         public virtual Specialization specialization { get; set; }
     }
 
@@ -67,7 +68,6 @@ namespace HealthSphere
     {
         [DisplayName("№")]
         public int id { get; set; }
-
         public int patientid { get; set; }
         public int doctorid { get; set; }
 
@@ -77,7 +77,11 @@ namespace HealthSphere
         [DisplayName("Время")]
         public TimeOnly time { get; set; }
 
+        [DisplayName("Выполнено")]
+        public bool completed { get; set; }
+
         public virtual Doctor doctor { get; set; }
+        public virtual Patient patient { get; set; }
     }
 
     public class Times
@@ -85,5 +89,23 @@ namespace HealthSphere
         public int id { get; set; }
         public TimeOnly time { get; set; }
         public int shiftid { get; set; }
+    }
+
+    public class Mkb
+    {
+        public int id { get; set; }
+        public string code { get; set; }
+        public string description { get; set; }
+    }
+
+    public class Appointment
+    {
+        public int id { get; set; }
+        public int recordid { get; set; }
+        public int mkbid { get; set; }
+        public int doctorid { get; set; }
+        public int patientid { get; set; }
+        public String result { get; set; }
+
     }
 }

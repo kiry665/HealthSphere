@@ -47,6 +47,16 @@ namespace HealthSphere.Windows
                     window.Show();
                     this.Close();
                 }
+                if(user.level == 2)
+                {
+                    using(ApplicationContext db = new ApplicationContext())
+                    {
+                        int doctorId = db.doctors.First(d => d.userid == user.id).id;
+                        DoctorWindow window = new DoctorWindow(doctorId);
+                        window.Show();
+                        this.Close();
+                    }
+                }
             }
         }
     }

@@ -10,6 +10,8 @@ namespace HealthSphere
         public DbSet<Specialization> specializations { get; set; } = null!;
         public DbSet<Records> records { get; set; } = null!;
         public DbSet<Times> times { get; set; } = null!;
+        public DbSet<Mkb> mkb { get; set; } = null!;
+        public DbSet<Appointment> appointments { get; set; } = null!;
 
 
 

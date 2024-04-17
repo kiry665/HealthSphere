@@ -64,11 +64,6 @@ namespace HealthSphere.Windows
                 };
             }
 
-            if (prop.Name == "specialization")
-            {
-                MessageBox.Show("Here");
-            }
-
             if (prop.PropertyType == typeof(DateOnly))
             {
                 DataGridTextColumn textColumn = e.Column as DataGridTextColumn;
